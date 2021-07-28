@@ -6,7 +6,12 @@ const INITIAL_STATE = {
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
-  return state;
+  switch (action.type) {
+    case "ADD_TO_BAG":
+      return { ...state, cart: [...state.cart, action.payload] };
+    default:
+      return state;
+  }
 };
 
 export default reducer;

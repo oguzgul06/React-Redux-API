@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { addToBag } from "../actions/addToBag";
 
 const Products = (props) => {
   return (
@@ -11,15 +12,12 @@ const Products = (props) => {
       </h2>
       {props.bookList.map((book) => (
         <div className="book">
-          <img
-            src={book.image}
-            alt={book.name}
-          />
+          <img src={book.image} alt={book.name} />
           <div>
             <h4>{book.name}</h4>
             <p>Author: {book.author}</p>
             <p>Price: &#8378; {book.price}</p>
-            <button>Add to Bag</button>
+            <button onClick={() => props.addToBag(book)}>Add to Bag</button>
           </div>
         </div>
       ))}
@@ -28,7 +26,9 @@ const Products = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { bookList: state.bookList };
+  return { bookList: state.bookList, cart: state.cart };
 };
 
-export default connect(mapStateToProps)(Products);
+const mapActionToProps = { addToBag };
+
+export default connect(mapStateToProps, mapActionToProps)(Products);
